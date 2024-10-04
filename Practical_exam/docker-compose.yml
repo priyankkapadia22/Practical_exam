@@ -1,0 +1,27 @@
+version: '3'
+services:
+  backend:
+    build: ./server
+    container_name: mern_todo_backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+    networks:
+      - mern-todo-network
+    depends_on:
+      - frontend
+
+  frontend:
+    build: ./client
+    container_name: mern_todo_frontend
+    ports:
+      - "4173:4173"  # Ensure this maps to the correct port
+    volumes:
+      - ./client:/app
+    networks:
+      - mern-todo-network
+
+networks:
+  mern-todo-network:
+    driver: bridge
